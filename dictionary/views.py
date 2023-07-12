@@ -35,8 +35,12 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         form = LoginForm()
-        qs_json = json.dumps(list(Term.objects.filter(
-            approved=True).values()), indent=4, sort_keys=True, default=str)
+        try:
+            qs_json = json.dumps(list(Term.objects.filter(
+                approved=True).values()), indent=4, sort_keys=True, default=str)
+        except:
+            qs_json = []
+            
         context.update({
             # 'terms': terms,
             'form': form,
@@ -332,7 +336,8 @@ class TermCreateView(CreateView):
                 keywords += definition
 
                 if form.cleaned_data['other_definitions']:
-                    other_definitions = form.cleaned_data['other_definitions'].split(" ")
+                    other_definitions = form.cleaned_data['other_definitions'].split(
+                        " ")
                     keywords += other_definitions
                 else:
                     pass
@@ -340,7 +345,6 @@ class TermCreateView(CreateView):
                 str_keywords = ', '.join([str(word) for word in keywords])
 
                 form.instance.meta_keywords = str_keywords
-
 
             def create_meta_description(form):
                 form.instance.meta_description = form.cleaned_data['definition']
@@ -452,7 +456,7 @@ class TermUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         try:
-            
+
             def create_meta_keywords(form):
                 keywords = []
 
@@ -463,7 +467,8 @@ class TermUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
                 keywords += definition
 
                 if form.cleaned_data['other_definitions']:
-                    other_definitions = form.cleaned_data['other_definitions'].split(" ")
+                    other_definitions = form.cleaned_data['other_definitions'].split(
+                        " ")
                     keywords += other_definitions
                 else:
                     pass
@@ -472,13 +477,11 @@ class TermUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
                 form.instance.meta_keywords = str_keywords
 
-
             def create_meta_description(form):
                 form.instance.meta_description = form.cleaned_data['definition']
 
             create_meta_keywords(form)
             create_meta_description(form)
-
 
             messages.add_message(self.request, messages.SUCCESS,
                                  'Word updated successfully')
