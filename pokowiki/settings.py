@@ -74,6 +74,9 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+# railway config
+CSRF_TRUSTED_ORIGINS = ['https://pokomo.up.railway.app']
+
 ROOT_URLCONF = 'pokowiki.urls'
 
 TEMPLATES = [
