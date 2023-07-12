@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png'%}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png'%}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png'%}">
+    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest'%}">
+    <title>Wiki | Pokomo Dictionary & Wiki</title>
+</head>
+<body>
+    <header>
+        <nav role="navigation">
+            <div>
+                <a class="navbar-brand" aria-label="PokomoDictionary logo" href="{% url 'index' %}" data-toggle="tooltip" data-placement="right" title="Pokomo Dictionary Home">
+                    <img src="{% static 'img/Logo-wiki.png' %}" alt="logo" />
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main></main>
+    <footer></footer>
+</body>
+</html>

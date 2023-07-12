@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'vendor/fa/css/all.css' %}" />
+    {% block cssFile %}{% endblock cssFile %}
+    <link
+      rel="shortcut icon"
+      href="{% static 'img/Logo@2x.png' %}"
+      type="image/x-icon"
+    />
+    <title>{% block head_title %}{% endblock %}</title>
+    <style>
+      .alert-error {
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+      }
+    </style>
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  <body style="font-family: "Montserrat", sans-serif;">
+    {% block body %}
+
+{% if messages %} {% for message in messages %}
+      <div class="alert alert-{{message.tags}} m-2">{{ message }}</div>
+      {% endfor %} {% endif %}
+
+    {% comment %} <div>
+      <strong>Menu:</strong>
+      <ul>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+        {% else %}
+        <li><a href="{% url 'account_login' %}">Sign In</a></li>
+        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div> {% endcomment %}
+    {% block content %}
+    {% endblock %}
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}
+  </body>
+</html>
