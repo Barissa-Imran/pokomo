@@ -1,0 +1,21 @@
+{% load static %}{% load socialaccount %} {% get_providers as socialaccount_providers %} {% for provider in socialaccount_providers %} {% if provider.id == "openid" %} {% for brand in provider.get_brands %}
+<li>
+  <a
+    title="{{brand.name}}"
+    class="socialaccount_provider {{provider.id}} {{brand.id}}"
+    href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+    >{{brand.name}}</a
+  >
+</li>
+{% endfor %} {% endif %}
+
+<a
+  title="{{provider.name}}"
+  class="socialaccount_provider {{provider.id}} btn"
+  style=""
+  href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"
+>
+<img style="width:60%;" src="{% static 'img/btn_google_signin_light_normal_web@2x.png' %}" alt="Sign in with Google"/>
+</a>
+
+{% endfor %}

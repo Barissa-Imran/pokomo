@@ -1,0 +1,46 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% load account %}
+{% user_display user as user_display %}
+{% block title %}
+<title> {{profile.user}} - Profile | Pokomo Dictionary & Wiki</title>
+{% endblock title %}
+{% block content %}
+<section class="mt-5 profile-home">
+    <div class="d-flex mb-4 gap-2">
+    <h3 class="">Profile</h3>
+    {% if user.id == None %}
+    <a class="btn-sm btn-info btn" href="{% url 'account_login'  %}" role="button">Login</a>
+    {% elif user.id != profile.user.id %}
+    <a class="btn-sm btn-success btn" href="{% url 'profile' pk=user.id username=user.username  %}" role="button">Switch account</a>
+    {% else %}{% endif %}
+    </div>
+    <div class="row gap-2">
+        <div class="col-md-4 d-flex flex-column align-items-center user-box">
+            <img src="{% static 'img/profile.svg' %}" alt="profile" style="width:50%;">
+            <p class="text-center mt-4">{% if profile.user|stringformat:"s" == user_display %}Welcome back,{% else %}You are currently viewing:{% endif %} <br>
+            <span class="username">{{ profile.user }}.</span></p>
+            <p class="small text-muted">Joined: {{profile.user.date_joined|date:"M, Y"}}</p>
+            <a class="btn btn-settings mt-3" href="{% url 'settings' %}" role="button">Settings</a>
+        </div>
+        <div class="col-md-7">
+            <h5 class="summary-h1">Summary</h5>
+            <div class="row gap-2">
+                <div class="summary-box co col-sm-5">
+                    <p class="summary-h2" title="Click on the outline page to learn more">REPUTATION</p>
+                    <p class="badge bg-success" data-toggle="tooltip" data-placement="right" title="Earned from your participation on our site">{{ profile.reputation }}</p>
+                    <div class="d-flex gap-2 justify-content-between">
+                        <p class="votes-cast">{{ votes|default:"0" }}<br><span class="small"> Votes cast</p>
+                        <p class="votes-cast">{{ flags|default:"0" }}<br><span class="small"> Helpful flags</p>
+                    </div>
+                </div>
+                <div class="summary-box co col-sm-6">
+                    <p class="summary-h2">WORDS</p>
+                    <p class="votes-cast small">{{ term_count|default:'0' }}<br><span class="small"> Words</p>
+                </div>    
+            </div>
+        </div>
+    </div>   
+</section>
+{% endblock content %}
+{% block extraScript %}{% endblock extraScript %}
