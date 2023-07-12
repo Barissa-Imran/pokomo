@@ -1,0 +1,270 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load account %}
+{% load account socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        Don't bother reading this code, you won't get anything usefull. |`_`| ---- |`_`|
+        
+        if you're pokomo "Odhu?"
+        
+     -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <link rel="canonical" href="https://pokomodictionary.com> <link
+    rel="shortlink" href="https://pokomodictionary.com
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Pokomo Dictionary & Wiki | https://pokomodictionary.com"
+    />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="https://pokomodictionary.com/>
+    <meta
+      property="og:site_name"
+      content="Pokomo Dictionary & Wiki | https://pokomodictionary.com"
+    />
+    <!-- <meta property="og:image" href="link" /> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'vendor/fa/css/all.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png'%}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png'%}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png'%}">
+    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest'%}">
+    {% block title %}{% endblock title %}
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N0B0G5NRXY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-N0B0G5NRXY');
+</script>
+    <style>
+      .alert-error {
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+      }
+    </style>
+  </head>
+  <body>
+      <!-- navbar area -->
+    <nav id="blur2" class="nav px-2" role="navigation" style="background-color: #eae5ff">
+      <div class="container mx-auto py-2 nav-wrapper">
+        <div class="d-flex align-items-center">
+          <a class="navbar-brand" aria-label="PokomoDictionary logo" href="{% url 'index' %}">
+            <img src="{% static 'img/Logo.png' %}" alt="logo" />
+          </a>
+          <!-- mini navbar -->
+          <ul class="d-flex">
+            <li class="">
+              <a href="#Wiki"> Wiki </a>
+            </li>
+            <li class="">
+              <a href="{% url 'tos' %}"> Terms </a>
+            </li>
+            <li class="">
+              <a href="{% url 'privacy' %}"> Privacy </a>
+            </li>
+            <li class="">
+              <a href="{% url 'about' %}"> About </a>
+            </li>
+            <li>
+                <div class="dropdown ddMore">
+                <a class="dropdown-toggle" type="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  More
+                </a>
+                <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuMore">
+                    <a href="{% url 'content_guidelines' %}">Content Guidelines</a>
+                    <a href="{% url 'editor' %}">Rejection</a>
+                    <div><a href="{% url 'dmca' %}"> dmca </a></div>
+                </div>
+            </li>
+          </ul>
+        </div>
+        <!-- Search-bar area -->
+       <div class="d-flex justify-between s-link position-sm-relative">
+          <form action="{% url 'search' %}" class="position-md-relative">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-search d-none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              />
+            </svg>
+            <input
+              class="Search py-2 px-4 pl-10"
+              type="search"
+              aria-label="Type any word..."
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              name="term"
+              id="searchTerm"
+              placeholder="Type any word here..."
+              spellcheck="false"
+              tabindex="0"
+              type="text"
+            />
+            <div id="box" class=" position-absolute rounded bg-white w-100 border d-none p-2" style="z-index: 1;">
+              
+            </div>
+          </form>
+          
+          <a href="{% url 'add' %}" data-toggle="tooltip" data-delay="0" data-placement="bottom" title="Add Word">
+            <img src="{% static 'img/plus-circle-fill.svg' %}" alt="Add" />
+          </a>
+          <a href="{% url 'random' %}" data-toggle="tooltip" data-delay="0" data-placement="right" title="Random Word">
+            <img src="{% static 'img/random.svg' %}" alt="random" />
+          </a>
+          <a href="{% if user.is_authenticated %}{% url 'profile' pk=user.id username=user.username %}{% else %}{% url 'account_login'  %}{% endif %}" data-toggle="tooltip" data-delay="0" data-placement="right" title="Account">
+            <img src="{% static 'img/user.svg' %}" alt="profile" />
+          </a>
+        </div>
+      </div>
+    </nav>
+     <!-- page content area -->
+            {% if messages %} {% for message in messages %}
+        <div id="message" class="alert alert-{{message.tags}} mx-auto m-2 d-flex gap-4 justify-content-center align-content-center rounded sticky-top small">
+          <div class="">{{ message }}</div>
+          <i class="close-btn bi bi-x"></i>
+        </div>
+        {% endfor %} {% endif %}
+    <main id="blur" class="content container py-4 mx-auto">
+      {% comment %} content area {% endcomment %}
+        
+
+      {% block content %}{% endblock content %}
+    </main>
+
+    <!-- login popup -->
+
+    <section id="popup" class="small">
+      <div class="d-flex justify-content-end">
+        <button id="close" class="btn rounded btn-light" onclick="login();">x</button>
+      </div>
+      
+      <div class="item-container">
+        <h2 class="log-in">{% trans "Login" %}</h2>
+      </div>
+      <div class="item-container">
+        {% get_providers as socialaccount_providers %}
+
+        {% if socialaccount_providers %}
+        <div class="socialaccount_ballot">
+          {% comment %} <i class="fa-brands fa-google"></i> {% endcomment %}
+          <p class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </p>
+
+        </div>
+
+        {% include "socialaccount/snippets/login_extra.html" %}
+
+        {% else %}
+        <p>{% blocktrans %}If you have not created an account yet, then please
+        <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+        {% endif %}
+        <p class="login-or">{% trans 'or' %}</p>
+      </div>
+      <form class="login" method="POST" action="/accounts/login/?next={{request.path}}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+        <div class="d-flex justify-content-center my-3">
+          <button id="login-btn" class="primaryAction btn btn-primary" type="submit">{% trans "Login" %}</button>
+        </div>
+          <p class="text-center"><a href="{{ signup_url }}">Create Account</a></p>
+      </form>
+      <div class="d-flex justify-content-between align-content-center">
+        <a class="small text-muted" aria-label="PokomoDictionary logo" href="{% url 'privacy' %}">privacy</a>
+        <a href="{% url 'tos' %}" class="small text-muted"> Terms of service</a>
+      </div>
+
+    </section>
+    <!-- login popup end-->
+
+    <!-- Flag popup -->
+    <section id="flagPopup" class="small">
+      <div id="secFlagPopup">
+        <div class="d-flex justify-content-end">
+          <button id="flagClose" class="btn rounded" onclick="flag();"><i class="fa fa-times-circle" style="color:#7143C2; "></i></button>
+        </div>
+        <div class="flagIcon d-flex justify-content-center mb-2">
+          <img src="{% static 'img/flag-icon.svg' %}" alt="Flag" srcset="">
+        </div>
+        {% csrf_token %}
+        <div class="d-flex flex-column gap-2 justify-content-center">
+          <label for="flagReason">Why are you reporting this word & definition?</label>
+          <select class="p-2" name="flagReason" required id="flagReason">
+              <option value="Wrong definition" selected>Wrong definition</option>
+              <option value="Hate speech">Hate speech</option>
+              <option value="Other">Other</option>
+          </select>
+          <textarea
+              class="p-4 d-none"
+              name="other_reason"
+              id="other_reason"
+              cols="50"
+              rows="5"
+              placeholder="Type other reason"
+              autocapitalize="words"
+              autocomplete="off"
+              autofocus="off"
+              autocorrect="off"
+              spellcheck="false"
+              maxlength="150"
+            ></textarea>
+        </div>
+        <button id="btnReport" class="btn btn-sm rounded mt-2">Report <i class="fa fa-exclamation-circle"></i></button>
+        <p class="text-center small text-muted mt-2">Your report is anonymous, except if your're reporting an intellectual property infringement.</p>
+      </div>
+    </section>
+    <!-- Flag popup end -->
+    
+    {% block script %}{% endblock script %}
+        <script
+      type="text/javascript"
+      src="{% static 'vendor/jquery/jquery-3.6.0.min.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"
+    ></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+        <!-- <script
+      src="https://kit.fontawesome.com/684f3642c3.js"
+      crossorigin="anonymous"
+    ></script> -->
+  </body>
+</html>

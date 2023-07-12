@@ -1,0 +1,280 @@
+{% extends 'dictionary/base.html' %} {% load static %}
+{% load social_share %}
+
+
+{% block title %}
+    <title>' {{char}} ' Browse | Pokomo Dictionary & Wiki</title>
+{% endblock title %}
+{% block content %}
+      <div
+        class="flex items-center justify-center mb-4 overflow-hidden d-none"
+        style="height: 50px"
+      >
+        <!-- ad slot 728px 90px -->
+      </div>
+      <div class="d-flex flex-row mx-0 row gap-4">
+        <section class="col-lg-7 overflow-hidden">
+
+        {% if terms %}
+          {% for term in terms %}
+          <div class="definition mb-4 overflow-hidden rounded-3">
+            <!-- success message -->
+            <div id="flagMessage" class="alert alert-success d-none {{ term.id }} mb-1 d-flex justify-content-between">
+              <div class="messageDisplay {{ term.id }} small">message </div>
+              <button class="btn rounded" onclick="closeFlagMessage();">x</button>
+            </div>
+            <div class="p-5">
+              <div class="mb-3 d-flex justify-content-between">
+                <h1 class="flex-1">
+                  <a href="{{ term.get_absolute_url }}" class="word"> {{ term.word|title }}</a>
+                </h1>
+               <div>
+                  <div class="d-flex gap-1">
+                    {% post_to_twitter "{{term.word}} | {{term.definition}}" term "class='twitter'" %}
+                    {% post_to_facebook term object_or_url "Post to Facebook!" %}
+                    {% post_to_whatsapp term object_or_url "Share via WhatsApp" %}
+                  </div>
+                </div>
+              </div>
+              <div class="source mb-4">
+                <p class="subTribe">
+                  Sub-Tribe:
+                  <a href="#subtribeWiki">{{term.language}}</a>
+                </p>
+                <p class="dialect">
+                  dialect:
+                  <a href="#dialectWiki">{{ term.dialect }}</a>
+                </p>
+              </div>
+              <div class="meaning mb-5">
+                <p class="mean">
+                  {{ term.definition }}
+                </p>
+                <p class="example fw-light">
+                  <span class="example{{term.id}} fst-italic">"{{term.example|capfirst}}"</span>
+                 <span class="exampletrans{{term.id}} fst-italic d-none">"{{term.example_translation|capfirst}}"</span>
+                  <a data-termId="{{term.id}}" class="exampletrans btn btn-sm text-decoration-underline text-muted fw-bold">Translate</a>
+                </p>
+              </div>
+              <!-- Other definations section -->
+                 {% if term.other_definitions %}
+                <div class="other mb-3 rounded">
+                  <div class="shape mb-2 p-">
+                    <h5>Definations of <span>{{ term.word|title }}</span><h5>
+                  </div>
+                  <!-- Other definations -->
+                  <div class="other-def">
+                    <ol>
+                      <p class="fw-light">{{ term.other_definitions|linenumbers|linebreaksbr}}</p>
+                    </ol>
+                  </div>
+                </div>
+
+                {% else %}
+                {% endif %}
+
+              <div class="contributor small">
+                <p class="author">
+                  by
+                  <a href="{% url 'profile' pk=term.author.id username=term.author %}" rel="tooltip" data-html="true" title="<div class='d-flex gap-2'><p class='p-1'>{{term.author}}</p><p class='p-1 rounded bg-success'>{{term.author.profile.reputation}}</div><p class='small'>Joined: {{term.author.date_joined|date:'M d, Y'}}</p>">{{ term.author }}</a>
+                  <span class="text-muted">{{ term.date }}</span>
+                </p>
+              </div>
+              <div class="translation d-none">
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    SEE OTHER TRANSLATIONS
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <p class="dropdown-item">Swahili</p>
+                    <p class="dropdown-item">Lower Pokomo (malanchini)</p>
+                    <p class="dropdown-item">English</p>
+                  </div>
+                </div>
+              </div>
+              <div class="endButtons d-flex justify-content-between">
+                <form class="vote d-flex" method="POST">
+                  {% csrf_token %}
+                  <button
+                    id="upVote{{ term.id }}"
+                    class="btn d-flex gap-2 thumbsUp upVote"
+                    aria-label="upVote"
+                    data-termid="{{ term.id }}"
+                    {% comment %} type="submit" {% endcomment %}
+                    onclick="{% if user.is_authenticated %}vote();{% else %}login();{% endif %}"
+                  >
+                    <i class="fas fa-thumbs-up {{ term.id }}"> {{ term.upvotes_count }}</i>
+                  </button>
+                  <button
+                    id="downVote{{ term.id }}"
+                    class="btn d-flex gap-2 thumbsDown downVote"
+                    aria-label="downVote"
+                    data-termid="{{ term.id }}"
+                    onclick="{% if user.is_authenticated %}vote();{% else %}login();{% endif %}"
+                  >
+                    <i class="fas fa-thumbs-down {{ term.id }}"> {{ term.downvotes_count }}</i>
+                  </button>
+                </form>
+                <div class="flag">
+                  <button
+                    id="btn-flag{{ term.id }}"
+                    class="btn d-flex gap-2 btn-flag {% if user == term.author %} disabled {% else %} {% endif %}"
+                    aria-label="flag"
+                    data-termid="{{ term.id }}"
+                    >
+                    <i class="fas fa-flag"> FLAG</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <div class="pagination mb-4">
+              <div class="step-links">
+                  {% if page_obj.has_previous %}
+                      <a class="btn btn-sm" href="?page=1">&laquo; first</a>
+                      <a class="btn btn-sm" href="?page={{ page_obj.previous_page_number }}">previous</a>
+                  {% endif %}
+
+
+
+                  {% if page_obj.has_next %}
+                      <a class="btn btn-sm" href="?page={{ page_obj.next_page_number }}">next</a>
+                      <a class="btn btn-sm" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                  {% endif %}
+              </div>
+              <div class="current p-1 rounded text-white small">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+              </div>
+          </div>
+          {% else %}
+          <div class="definition mb-4 overflow-hidden rounded-3">
+            <!-- success message -->
+            <div id="flagMessage" class="alert alert-success d-none {{ term.id }} mb-1 d-flex justify-content-between">
+              <div class="messageDisplay {{ term.id }} small">message </div>
+              <button class="btn rounded" onclick="closeFlagMessage();">x</button>
+            </div>
+            <div class="p-5">
+              <div class="mb-3 d-flex justify-content-between">
+                <h1 class="flex-1">
+                  <a href="{% url 'add' %}" class="word" title="click me">There are no words with this letter yet. Be the first to add a word</a>
+                </h1>
+
+              </div>
+
+            </div>
+          </div>
+          {% endif %}
+
+        </section>
+        <aside class="col-lg-4 rounded px-3 pt-5 pb-3">
+          <div class="top d-flex justify-content-between mb-2">
+            <div class="call">
+              <p>POKOMO</p>
+              <p>DICTIONARY</p>
+              <p>IS WRITTEN</p>
+              <p>BY YOU</p>
+            </div>
+            <img
+              class="wordArt image-fluid"
+              src="{% static 'img/Word Art.png' %}"
+              alt="word-art"
+            />
+          </div>
+          <div class="define text-center mb-3">
+            <a href="{% url 'add' %}" class="btn btn-rounded text-white">
+              <i class="fas fa-plus"></i>
+              Define a word
+            </a>
+          </div>
+          <div class="media">
+            <div class="upperLayer d-flex justify-content-between mb-2">
+              <div class="tweet">
+                <a
+                  href="#twittershare"
+                  class="d-flex btn gap-2"
+                  data-network="twitter"
+                  target="_blank"
+                  role="button"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class=""
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"
+                    />
+                  </svg>
+                  TWITTER
+                </a>
+              </div>
+              <div class="fb">
+                <a
+                  href="#facebookshare"
+                  class="d-flex btn gap-2"
+                  data-network="facebook"
+                  target="_blank"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class=""
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"
+                    />
+                  </svg>
+                  FACEBOOK
+                </a>
+              </div>
+            </div>
+            <div class="bottomLayer d-flex justify-content-center">
+              <div class="help">
+                <a href="mailto:admin@pokomodictionary.com" class="d-flex btn gap-2" target="_blank">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="29.262"
+                    viewBox="0 0 29.51 29.262"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M22.664,8C14.4,8,8,14.038,8,22.193a13.872,13.872,0,0,0,4.606,10.5c.493.443.391.7.475,3.436a1.175,1.175,0,0,0,1.645,1.037c3.122-1.375,3.162-1.483,3.691-1.339,9.044,2.489,19.093-3.456,19.093-13.788C37.51,13.881,30.926,8,22.664,8ZM31.6,18.658c-4.581,7.242.416-.654,0,0Z"
+                      transform="translate(-8 -8)"
+                    />
+                  </svg>
+                  HELP
+                </a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <footer class="d-flex flex-column text-end mx-5 fixed-botto">
+        <p>&copy; 2023 Pokomo Dictionary and Wiki</p>
+        <p>
+          <a href="#ads">ads.</a>
+          <a href="{% url 'tos' %}"> terms of service.</a>
+          <a href="{% url 'privacy' %}"> privacy.</a>
+          <a href="{% url 'dmca' %}"> dmca</a>
+          <a href="mailto:admin@pokomodictionary.com"> contact</a>
+        </p>
+      </footer>
+{% endblock content %}
