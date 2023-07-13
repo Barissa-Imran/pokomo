@@ -40,7 +40,7 @@ class IndexView(ListView):
                 approved=True).values()), indent=4, sort_keys=True, default=str)
         except:
             qs_json = []
-            
+
         context.update({
             # 'terms': terms,
             'form': form,
@@ -358,8 +358,8 @@ class TermCreateView(CreateView):
             # submit form after login
         except:
             pass
-        return super().form_valid(form)
 
+        return super().form_valid(form)
 
 class SubmitView(TemplateView):
     template_name = 'dictionary/submit.html'

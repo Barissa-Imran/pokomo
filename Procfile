@@ -1,1 +1,1 @@
-web: python manage.py migrate && python manage.py collectstatic && gunicorn pokowiki.wsgi --log-file -
+web: python manage.py migrate --run-syncdb && python manage.py collectstatic && gunicorn pokowiki.wsgi --log-file -
