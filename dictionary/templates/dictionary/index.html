@@ -29,9 +29,9 @@
                 </h1>
                 <div>
                   <div class="d-flex gap-1">
-                    {% post_to_twitter "{{term.word}} | {{term.definition}}" term "class='twitter'" %}
-                    {% post_to_facebook term object_or_url "Post to Facebook!" %}
-                    {% post_to_whatsapp term object_or_url "Share via WhatsApp" %}
+                    {% post_to_twitter "{{term.word}} | {{term.definition}}" term "<i class='bi bi-twitter'></i>" %}
+                    {% post_to_facebook term object_or_url "<i class='bi bi-facebook'></i>" %}
+                    {% post_to_whatsapp term object_or_url "<i class='bi bi-whatsapp'></i>" %}
                   </div>
                 </div>
               </div>
