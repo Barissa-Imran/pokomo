@@ -20,7 +20,7 @@
     <img alt="Live site" src="https://img.shields.io/badge/Live-Deploy-informational">
   </a>
 </p>
-<img src="https://user-images.githubusercontent.com/74467681/172966362-95291340-77a4-42c1-b9f7-4bb07817f086.png" />
+<img src="https://github.com/Barissa-Imran/pokomo/assets/74467681/1f40c5bb-b4b0-4c69-96c7-6713e6d34c95" />
 
 
 ## 🛠 Installation & Set Up
