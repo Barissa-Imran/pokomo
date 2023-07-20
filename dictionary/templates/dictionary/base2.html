@@ -6,11 +6,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <!-- 
+    <!--
         Don't bother reading this code, you won't get anything usefull. |`_`| ---- |`_`|
-        
+
         if you're pokomo "Odhu?"
-        
+
      -->
   <head>
     <meta charset="UTF-8" />
@@ -22,19 +22,19 @@
       name="robots"
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
-    <link rel="canonical" href="https://pokomodictionary.com> <link
-    rel="shortlink" href="https://pokomodictionary.com
+    <link rel="canonical" href="https://pokomo.up.railway.app> <link
+    rel="shortlink" href="https://pokomo.up.railway.app
     <meta property="og:locale" content="en_GB" />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
-      content="Pokomo Dictionary & Wiki | https://pokomodictionary.com"
+      content="Pokomo Dictionary & Wiki | https://pokomo.up.railway.app"
     />
     <meta property="og:description" content="" />
-    <meta property="og:url" content="https://pokomodictionary.com/>
+    <meta property="og:url" content="https://pokomo.up.railway.app/>
     <meta
       property="og:site_name"
-      content="Pokomo Dictionary & Wiki | https://pokomodictionary.com"
+      content="Pokomo Dictionary & Wiki | https://pokomo.up.railway.app"
     />
     <!-- <meta property="og:image" href="link" /> -->
     <link
@@ -134,10 +134,10 @@
               type="text"
             />
             <div id="box" class=" position-absolute rounded bg-white w-100 border d-none p-2" style="z-index: 1;">
-              
+
             </div>
           </form>
-          
+
           <a href="{% url 'add' %}" data-toggle="tooltip" data-delay="0" data-placement="bottom" title="Add Word">
             <img src="{% static 'img/plus-circle-fill.svg' %}" alt="Add" />
           </a>
@@ -159,7 +159,7 @@
         {% endfor %} {% endif %}
     <main id="blur" class="content container py-4 mx-auto">
       {% comment %} content area {% endcomment %}
-        
+
 
       {% block content %}{% endblock content %}
     </main>
@@ -170,7 +170,7 @@
       <div class="d-flex justify-content-end">
         <button id="close" class="btn rounded btn-light" onclick="login();">x</button>
       </div>
-      
+
       <div class="item-container">
         <h2 class="log-in">{% trans "Login" %}</h2>
       </div>
@@ -251,7 +251,7 @@
       </div>
     </section>
     <!-- Flag popup end -->
-    
+
     {% block script %}{% endblock script %}
         <script
       type="text/javascript"

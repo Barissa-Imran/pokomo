@@ -1,12 +1,13 @@
-{% load static %} {% load crispy_forms_tags %} {% load i18n %} {% load account %} {% load account socialaccount %}
+{% load static %} {% load crispy_forms_tags %} {% load i18n %} {% load account
+%} {% load account socialaccount %}
 
 <!DOCTYPE html>
 <html lang="en">
-  <!-- 
+  <!--
         Don't bother reading this code, you won't get anything usefull. |`_`| ---- |`_`|
-        
+
         if you're pokomo "Odhu?"
-        
+
      -->
   <head>
     <meta charset="UTF-8" />
@@ -14,19 +15,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-    <link rel="canonical" href="http://pokomodictionary.com> <link
-    rel="shortlink" href="http://pokomodictionary.com
+    <link rel="canonical" href="http://pokomo.up.railway.app> <link
+    rel="shortlink" href="http://pokomo.up.railway.app
     <meta property="og:locale" content="en_GB" />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
-      content="Pokomo Dictionary & Wiki | http://pokomodictionary.com"
+      content="Pokomo Dictionary & Wiki | http://pokomo.up.railway.app"
     />
     <meta property="og:description" content="" />
-    <meta property="og:url" content="http://pokomodictionary.com/>
+    <meta property="og:url" content="http://pokomo.up.railway.app/>
     <meta
       property="og:site_name"
-      content="Pokomo Dictionary & Wiki | http://pokomodictionary.com"
+      content="Pokomo Dictionary & Wiki | http://pokomo.up.railway.app"
     />
     <!-- <meta property="og:image" href="link" /> -->
     <link href="
@@ -42,9 +43,19 @@
     />
     <link rel="stylesheet" href="{% static 'vendor/fa/css/all.css' %}" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png'%}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png'%}">
-    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest'%}">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'img/favicon/favicon-32x32.png'%}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'img/favicon/favicon-16x16.png'%}"
+    />
+    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest'%}" />
     {% block title %}
     <title>Submit | Pokomo Dictionary & Wiki</title>
     {% endblock title %}
@@ -68,18 +79,22 @@
         <div class="item-container">
           <h2 class="log-in">{% trans "Login to continue" %}</h2>
         </div>
-        <p class="small text-centered text-muted">Please note that any error on this page might lead to us losing your word and accompanied data</p>
+        <p class="small text-centered text-muted">
+          Please note that any error on this page might lead to us losing your
+          word and accompanied data
+        </p>
         <div class="item-container">
-          {% get_providers as socialaccount_providers %} {% if socialaccount_providers %}
+          {% get_providers as socialaccount_providers %} {% if
+          socialaccount_providers %}
           <div class="socialaccount_ballot">
             {% comment %} <i class="fa-brands fa-google"></i> {% endcomment %}
             <p class="socialaccount_providers">
-              {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+              {% include "socialaccount/snippets/provider_list.html" with
+              process="login" %}
             </p>
           </div>
 
-          {% include "socialaccount/snippets/login_extra.html" %}
-           {% else %}
+          {% include "socialaccount/snippets/login_extra.html" %} {% else %}
           <p>
             {% blocktrans %}If you have not created an account yet, then please
             <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}

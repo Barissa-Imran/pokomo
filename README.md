@@ -13,17 +13,17 @@
   </a>
   <a href="https://djangoproject.com/" target="_blank">
   <img src="https://img.shields.io/badge/Django-v4.0-2ea44f"/>
-  </a> 
+  </a>
 </p>
 <p align="center">
-  <a href="https://www.pokomodictionary.com/" target="_blank">
+  <a href="https://www.pokomo.up.railway.app/" target="_blank">
     <img alt="Live site" src="https://img.shields.io/badge/Live-Deploy-informational">
   </a>
 </p>
 <img src="https://user-images.githubusercontent.com/74467681/172966362-95291340-77a4-42c1-b9f7-4bb07817f086.png" />
 
-
 ## 🛠 Installation & Set Up
+
 If you don't have Python and Django installed follow this [tutorial](https://docs.djangoproject.com/en/4.0/intro/install/).
 
 Remember to create a virtual enviroment from the tutorial above
@@ -31,11 +31,15 @@ Remember to create a virtual enviroment from the tutorial above
 > You need a working postgres database for this project. Save your credentials in a `.env` file
 
 1. Install dependancies
+
 ```sh
 pip install -r requirements
 ```
+
 2. Start the server on localhost
+
 ```sh
 python manage.py runserver
 ```
+
 <p align="center">Happy coding!</p>
