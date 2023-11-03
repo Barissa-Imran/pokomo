@@ -106,8 +106,8 @@ class IndexView(ListView):
         # check if user is authenticated
         if request.user.is_authenticated:
             term_id = request.POST.get('term_id')
-            # is_ajax() method deprecated in this version of django hence wrote my own
 
+            # is_ajax() method deprecated in this version of django hence wrote my own
             def is_ajax(request):
                 return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
@@ -407,7 +407,7 @@ class TermCreateView(CreateView):
             messages.add_message(self.request, messages.SUCCESS,
                                  'Word added successfully, await approval')
 
-            # submit form after login
+            # submit form after login check submit view
         except:
             pass
 
