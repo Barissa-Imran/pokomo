@@ -16,7 +16,7 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://www.pokomo.up.railway.app/" target="_blank">
+  <a href="https://pokomo.fly.dev/" target="_blank">
     <img alt="Live site" src="https://img.shields.io/badge/Live-Deploy-informational">
   </a>
 </p>

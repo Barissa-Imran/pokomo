@@ -6,7 +6,7 @@
   <p>
     As required by the Digital Millennium Copyright Act (“DMCA”), Pub. L.
     105-304, Pokomo Dictionary has designated an agent to receive notification
-    of alleged copyright infringement occurring in the pokomo.up.railway.app
+    of alleged copyright infringement occurring in the {{ request.get_host }}
     domain.
   </p>
   <p>
@@ -16,7 +16,7 @@
 
   <p class="text-muted">
     Pokomo Dictionary <br />
-    Attn: 55, Hola or email dmca@pokomo.up.railway.app
+    Attn: 55, Hola or email dmca@{{ request.get_host }}
   </p>
 
   <p>
@@ -33,7 +33,7 @@
     </li>
     <li>
       A description of the infringing material and information reasonably
-      sufficient to permit Urban Dictionary to locate the material;
+      sufficient to permit Pokomo Dictionary to locate the material;
     </li>
     <li>
       Your contact information, including your address, telephone number, and
